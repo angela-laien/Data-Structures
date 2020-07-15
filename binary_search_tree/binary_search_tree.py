@@ -17,20 +17,67 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # Case 1: value is less than self.value
+        if value < self.value:
+            # If there is no left child, insert value here
+            if self.left is None:
+               self.left = BSTNode(value)
+            else:
+                # Repeat the process on left subtree
+                self.left.insert(value)
+
+        # Case 2: value is greater than or equal self.value
+        elif value >= self.value:
+            # If there is no right child, insert value here
+            if self.right is None:
+               self.right = BSTNode(value)
+            else:
+                # Repeat the process on right subtree
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # Case 1: self.value is equal to the target
+        if self.value == target:
+            return True
+        # Case 2: target is less than self.value 
+        if target < self.value:
+            # if self.left is None, it isn't in the tree
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(target)
+        # Case 3: otherwise
+        else:
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        max_value = self.value
+
+        if self.right is None:
+            return self.value
+        else:
+            max_value = self.right.get_max()
+
+        return max_value
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # call fn on all values
+        fn(self.value)
+
+        if self.left:
+            # recurse on everythin left of root
+            self.left.for_each(fn)
+       
+        if self.right:
+            # recurse on everythin right of root
+            self.right.for_each(fn)
 
     # Part 2 -----------------------
 
@@ -38,16 +85,59 @@ class BSTNode:
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
         pass
-
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
         pass
+        # go through node level by level
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
         pass
+        # go far out to leaf from root of the tree
+#         current = node
+
+#         3
+#     /       \
+#   1          4
+# /            /    \
+# 0            4     8
+
+
+
+#         1.
+#         print 3
+#         [] -> [1, 4]
+
+#         2.
+#         pop off 1
+#         print 1
+#         add 0
+#         [4] -> [0, 4]
+
+#         3.
+#         pop off 0
+#         print 0
+#         0 has no kids, add nothing
+
+        
+
+#         1.
+#         print 3
+#         [] -> [1, 4]
+
+#         2.
+#         pop off 1
+#         print 1
+#         add 0
+#         [4] -> [4, 0]
+
+#         3.
+#         pop off 4
+#         print 4
+#         add 4 and 8
+#         [0] -> [0, 4, 8]
 
     # Stretch Goals -------------------------
     # Note: Research may be required
